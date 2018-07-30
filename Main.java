@@ -6,28 +6,41 @@ public class Main {
 
     public static void main(String[] args) {
 
-        fromStringToArray(str);
-        System.out.println("**************************");
+        System.out.println("---Массив строк---");
+        try {
+            fromStringToArray(str);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("В массиве не достаточно места.");
+            e.printStackTrace();
+        }
 
-        makeInt(arrayString);
-        System.out.println("*************************");
+        System.out.println("---Массив чисел---");
+        try {
+            makeInt(arrayString);
+        } catch (ArrayStoreException e) { // если в изначальном строковом массиве было не числовое значеие (символ или слово)
+            System.out.println("Попытка добавить не числовое значение.");
+            e.printStackTrace();
+        }
 
-        System.out.println(countSummAndDividetwo(arrayInt));
+        System.out.println("---Сумма элементов массива / 2---");
+        System.out.println("Результат вычисления = " + countSumAndDivideTwo(arrayInt));
 
     }
 
-    static void fromStringToArray(String str) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                String x = String.valueOf(str.charAt(j)); //??
+    static void fromStringToArray(String str) throws IndexOutOfBoundsException { // создание двумерного массива из строки
+        int temp = 0;
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = 0; j < str.length(); j++) {
+                String x = String.valueOf(str.charAt(temp)); //??
                 arrayString[i][j] = x;
                 System.out.print(arrayString[i][j] + " ");
+                temp++;
             }
             System.out.println(" ");
         }
     }
 
-    static void makeInt(String[][] array) {
+    static void makeInt(String[][] array) throws ArrayStoreException { //приведение массива строк к массиву чисел
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
                 int b = Integer.valueOf(array[i][j]);
@@ -38,7 +51,7 @@ public class Main {
         }
     }
 
-    static int countSummAndDividetwo(int[][] arrayInt) {
+    static int countSumAndDivideTwo(int[][] arrayInt) { // выполнение арифметической операции с массивом чисел
         int b = 0;
         for (int i = 0; i < arrayInt.length; i++) {
             for (int j = 0; j < arrayInt.length; j++) {
